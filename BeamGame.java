@@ -23,15 +23,28 @@ public class BeamGame extends Application {
     final int BOTTOM_LINE_Y=680-2;
     int slide_x, slide_y;
     int i;
+    GamePane gp1=new GamePane();
+    int isbusy;
    
     int scode;
-    
-
+    //Circle ball1=new Circle();
+    int newball(){
+        
+        if(isbusy==1){
+            return 0;
+        }
+        
+        gp1.NewBall();
+        slide_x=300;
+        slide_y=0;
+        
+        return 1;
+    }
     
     
     @Override
     public void start(Stage primaryStage) {       
-        GamePane gp1;
+                
         
         Button btn = new Button();
         btn.setText("Say 'Hello World'");
@@ -46,8 +59,11 @@ public class BeamGame extends Application {
         //StackPane root = new StackPane();
         //root.getChildren().add(btn);
         
-        gp1=new GamePane();
+        //gp1=new GamePane();        
         Scene scene1 = new Scene(gp1, GAMEPANE_WIDTH, GAMEPANE_HEIGHT);
+        //isbusy=1;
+        gp1.NewBall();
+        gp1.setOnMousePressed(e -> newball());
         
         //draw lines and circles
         gp1.DrawPic();
@@ -74,18 +90,15 @@ public class BeamGame extends Application {
                 
                 //gp1.DrawPic();
                 
-                if(slide_y<(BOTTOM_LINE_Y-BALL_RADIUS))
+                if(slide_y >= (BOTTOM_LINE_Y-BALL_RADIUS))
                 {
-                    slide_y=slide_y+1;
+                    isbusy=0;
                 }
                 else
                 {
-                    //slide_y=ball_radius;//loop drop
-                }
-                
-                //System.out.printf("slide_x=%d  slide_y=%d\n", slide_x, slide_y);
-                //if(slide_y%2==0)//control drop speed
-                {
+                    isbusy=1;
+                    slide_y=slide_y+1;
+                    
                     //change direction when impacted stick ball
                     for(i=0;i<28;i++)
                     {
@@ -107,7 +120,8 @@ public class BeamGame extends Application {
                     gp1.drawball(slide_x, slide_y, BALL_RADIUS);
                 }
             }
-        }.start();                                
+        }.start();                 
+        
         
         primaryStage.setTitle("BeamGame");
         primaryStage.setScene(scene1);
@@ -125,12 +139,17 @@ public class BeamGame extends Application {
         int temp[]=new int[7];
         int c1_x[][]=new int[7][7];//x arrary for circles
         Line line1;
-        Circle C1;        
-        Circle C2=new Circle();           
+        Circle stickp;                           
+        Circle opc;
                 
         public GamePane(){
             //
-            getChildren().add(C2);
+            //getChildren().add(C2);
+        }
+        
+        public void NewBall(){
+            opc=new Circle();
+            getChildren().add(opc);
         }
         
         public void DrawPic(){
@@ -262,24 +281,24 @@ public class BeamGame extends Application {
         //set circle feature
         
         int drawcircle(int x, int y, int r){            
-            C1=new Circle();
+            stickp=new Circle();
                         
-            C1.setCenterX(x);
-            C1.setCenterY(y);
-            C1.setRadius(r);
-            C1.setStroke(Color.BLACK);
-            C1.setFill(Color.RED);                
-            getChildren().add(C1);                                
+            stickp.setCenterX(x);
+            stickp.setCenterY(y);
+            stickp.setRadius(r);
+            stickp.setStroke(Color.BLACK);
+            stickp.setFill(Color.RED);                
+            getChildren().add(stickp);                                
             return 0;
         }
         
         
         int drawball(int x, int y, int r){       
-            C2.setCenterX(x);
-            C2.setCenterY(y);
-            C2.setRadius(r);
-            C2.setStroke(Color.BLACK);
-            C2.setFill(Color.BLUE);                
+            opc.setCenterX(x);
+            opc.setCenterY(y);
+            opc.setRadius(r);
+            opc.setStroke(Color.BLACK);
+            opc.setFill(Color.BLUE);                
             
             return 0;
         }
