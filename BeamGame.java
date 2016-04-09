@@ -46,6 +46,8 @@ public class BeamGame extends Application {
     public void start(Stage primaryStage) {       
                 
         
+        SecureRandom srand = new SecureRandom();
+        scode = (srand.nextInt() % 128 );//DO the first random so that the first ball won't be lag
         Button btn = new Button();
         btn.setText("Say 'Hello World'");
         btn.setOnAction(new EventHandler<ActionEvent>() {
@@ -90,7 +92,7 @@ public class BeamGame extends Application {
                             if(gp1.c1_pt[i][1]==slide_y)
                             {
                                 //bcode
-                                SecureRandom srand = new SecureRandom();
+                                //SecureRandom srand = new SecureRandom();
                                 scode = (srand.nextInt() % 128 );
                                 if((scode %2)==0)
                                     slide_x=slide_x + gp1.STICK_BALL_INTERVAL;
