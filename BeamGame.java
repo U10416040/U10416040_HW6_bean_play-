@@ -60,8 +60,7 @@ public class BeamGame extends Application {
         //root.getChildren().add(btn);
         
         //gp1=new GamePane();        
-        Scene scene1 = new Scene(gp1, GAMEPANE_WIDTH, GAMEPANE_HEIGHT);
-        //isbusy=1;
+        Scene scene1 = new Scene(gp1, GAMEPANE_WIDTH, GAMEPANE_HEIGHT);        
         gp1.NewBall();
         gp1.setOnMousePressed(e -> newball());
         
@@ -72,24 +71,8 @@ public class BeamGame extends Application {
         slide_y=BALL_RADIUS;
         new AnimationTimer() {
             @Override
-            public void handle(long now) {
-                /*
-                final double width = 0.5 * primaryStage.getWidth();
-                final double height = 0.5 * primaryStage.getHeight();
-                final double radius = Math.sqrt(2) * Math.max(width, height);
-                for (int i=0; i<STAR_COUNT; i++) {
-                    final Node node = nodes[i];
-                    final double angle = angles[i];
-                    final long t = (now - start[i]) % 2000000000;
-                    final double d = t * radius / 2000000000.0;
-                    node.setTranslateX(Math.cos(angle) * d + width);
-                    node.setTranslateY(Math.sin(angle) * d + height);
-                }
-                */
-
-                
-                //gp1.DrawPic();
-                
+            public void handle(long now) {                               
+                //decide can we add a ball
                 if(slide_y >= (BOTTOM_LINE_Y-BALL_RADIUS))
                 {
                     isbusy=0;
@@ -123,7 +106,7 @@ public class BeamGame extends Application {
         }.start();                 
         
         
-        primaryStage.setTitle("BeamGame");
+        primaryStage.setTitle("BeamGame     Click mouse to add more balls when ball has land to bottom");
         primaryStage.setScene(scene1);
         primaryStage.show();
         
@@ -142,11 +125,11 @@ public class BeamGame extends Application {
         Circle stickp;                           
         Circle opc;
                 
-        public GamePane(){
+        public GamePane(){           
             //
-            //getChildren().add(C2);
         }
         
+        //add new balls
         public void NewBall(){
             opc=new Circle();
             getChildren().add(opc);
@@ -292,7 +275,7 @@ public class BeamGame extends Application {
             return 0;
         }
         
-        
+        //drawball
         int drawball(int x, int y, int r){       
             opc.setCenterX(x);
             opc.setCenterY(y);
